@@ -558,6 +558,163 @@ const regionalOfficeOfficersSchema = newSchema({
     },
 });
 
+const branchSchema = newSchema({
+    branchName: {
+        type: String,
+        required: true,
+        max: 255,
+        min: 4,
+        unique: true,
+    },
+    managers:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "branch_manager",
+    }],
+    branchEmail: {
+        type: String,
+        required: true,
+        unique: true,
+        max: 255,
+        min: 4,
+        lowercase: true,
+    },
+    regionalOffice: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "regional_office",
+    },
+
+    address: {
+        address: {
+            type: String,
+            required: true,
+            max: 255,
+            min: 4,
+        },
+        pinCode: {
+            type: Number,
+            required: true,
+        },
+        city: {
+            type: String,
+            required: true,
+            max: 255,
+            min: 4,
+        },
+        state: {
+            type: String,
+            required: true,
+            max: 255,
+            min: 4,
+        },
+        country: {
+            type: String,
+            required: true,
+            max: 255,
+            min: 4,
+        },
+    },
+    regionalOfficeHistory: [{
+        _id: false,
+        historyType: {
+            type: String,
+        },
+        relation: {
+            type: mongoose.Schema.Types.ObjectId,
+        },
+        date: {
+            type: Date,
+            default: Date.now(),
+        },
+    }],
+    createdAt: {
+        type: Date,
+        default: Date.now(),
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now(),
+    },
+});
+
+const branchManagerSchema = newSchema({
+    role: {
+        type: String,
+        required: true,
+        max: 255,
+        min: 4,
+        default: "manager",
+    },
+    name: {
+        type: String,
+        required: true,
+        max: 255,
+        min: 3,
+    },
+    age: {
+        type: Number,
+        min: 13,
+        max: 120,
+        default: null,
+    },
+    mobileNumber: {
+        type: Number,
+        default: null
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        max: 255,
+        min: 4,
+        lowercase: true,
+    },
+    password: {
+        required: false,
+        type: String,
+    },
+    branch: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "branch",
+    },
+    loggedIn:{
+        token: {
+            type: String,
+            default: null,
+        },
+        lastLoggedIn: {
+            type: Date,
+            default: null,
+        },
+        loginAttempts: {
+            type: Number,
+            default: 0,
+        },
+    },
+
+    authentication: {
+        otp: {
+            type: Number,
+            default: null,
+        },
+        otpExpiry: {
+            type: Date,
+            default: null,
+        },
+        token: {
+            type: String,
+            default: null,
+        },
+    },
+
+    createdAt: {
+        type: Date,
+        default: Date.now(),
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now(),
+    },
+});
 
 
 export default {
@@ -568,4 +725,6 @@ export default {
     headOfficeOfficers: newModel("head_office_officers", headOfficeOfficersSchema),
     regionalOffice: newModel("regional_office", regionalOfficeSchema),
     regionalOfficeOfficers: newModel("regional_office_officers", regionalOfficeOfficersSchema),
+    branch: newModel("branch", branchSchema),
+    branchManager: newModel("branch_Manager", branchManagerSchema),
 };
