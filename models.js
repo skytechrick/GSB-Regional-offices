@@ -416,6 +416,10 @@ const regionalOfficeSchema = newSchema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "head_office",
     },
+    branches:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "branch",
+    }],
     state: {
         type: String,
         required: true,
@@ -613,7 +617,7 @@ const branchSchema = newSchema({
             min: 4,
         },
     },
-    regionalOfficeHistory: [{
+    branchHistory: [{
         _id: false,
         historyType: {
             type: String,

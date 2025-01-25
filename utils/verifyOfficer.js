@@ -4,7 +4,7 @@ import { verifyToken } from "./jwtController.js";
 
 export const verifyOfficer = async ( req , res , next ) => {
     try {
-        const token = req.signedCookies.headOfficeOfficer;
+        const token = req.signedCookies.regionalOfficer;
         
         if(!token){
             return res.status(401).json({message: "Unauthorized access."});
@@ -16,7 +16,7 @@ export const verifyOfficer = async ( req , res , next ) => {
             return res.status(401).json({message: "Unauthorized access."});
         };
 
-        const officer = await Modules.headOfficeOfficers.findById(decoded.id).populate("headOffice").exec();
+        const officer = await Modules.regionalOfficeOfficers.findById(decoded.id).populate("regionalOffice").exec();
 
         if(!officer){
             return res.status(404).json({message: "officer not found"});

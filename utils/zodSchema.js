@@ -6,11 +6,10 @@ export const loginSchema = z.object({
 });
 
 
-export const createRegionalOfficeSchema = z.object({
+export const createBranchSchema = z.object({
     id: z.string().min(4).max(255),
-    regionalOfficeName: z.string().min(4).max(255),
-    officialEmail: z.string().email(),
-    state: z.string().min(3).max(255),
+    branchName: z.string().min(4).max(255),
+    branchEmail: z.string().email(),
     address: z.object({
         address: z.string().min(4).max(255),
         pinCode: z.string().max(6).min(6),
@@ -21,7 +20,7 @@ export const createRegionalOfficeSchema = z.object({
 });
 
 
-export const createRegionalOfficeOfficersSchema = z.object({
+export const createBranchManagerSchema = z.object({
     id: z.string().min(24).max(24),
     name: z.string().min(3).max(255),
     age: z.string().min(2).max(2).optional(),
